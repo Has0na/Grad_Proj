@@ -1,0 +1,32 @@
+{% load static %}
+{% if msg %}
+<script>
+     alert('{{ msg }}');
+</script>
+{% endif %}
+<html>
+<head>
+<title>Login Form Design</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/logstyle.css' %}">
+<body class="back" style="background-image: url({% static 'img/back.jpg' %});">
+   <form action="/postsign/" method="post">
+            {% csrf_token %}
+            <div class="loginbox">
+      <img src="{% static 'img/avatar.png' %}" class="avatar">
+        <h1>Login Here</h1>
+
+            <p>User ID</p>
+            <input type="email" name="email" placeholder="Enter your email">
+            <p>Password</p>
+            <input type="password" name="pass" placeholder="Enter Password">
+            <input type="submit"  value="Login">
+            <a href="#">Lost your password?</a><br>
+            <button type="button" class="btn inhome" onclick="location.href='{% url 'regester' %}'">Don't have an account?</button>
+          
+
+        
+    </div>
+ </form>
+</body>
+</head>
+</html>

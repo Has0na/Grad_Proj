@@ -1,0 +1,59 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Student</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- styles CSS -->
+        <link rel="stylesheet" href="{% static 'bootstrap-4/css/main_Css/slick-theme.css' %}">
+        <link rel="stylesheet" href="{% static 'bootstrap-4/css/main_Css/normalize.css' %}">
+        <link rel="stylesheet" href="{% static 'bootstrap-4/css/main_Css/bootstrap.css' %}">
+        <link rel="stylesheet" href="{% static 'bootstrap-4/css/main_Css/font-awesome.css' %}">
+        <link rel="stylesheet" href="{% static 'bootstrap-4/css/main_Css/style.css' %}">
+
+    </head>
+    
+    <body>
+
+        <div class="container cont">
+
+            <div class="left">
+                <div class="acc">
+                    <h5>Account</h5>
+                </div>
+
+                <div class="acdm">
+                    <h5>My Academics</h5>
+                </div>
+
+            </div>
+            
+            <div class="right">
+                <div class="feat">
+                    <h5>Profile</h5>
+                </div>
+                <div class="feat">
+                    <h5>Registration</h5>
+                <div class="btn">
+                       <a href="{% url 'courseregistration' %}">Register for Courses </a>
+                </div>
+
+                <div class="btn">
+                      <a href="{% url 'json_test' %}">View Report Card</a>
+                </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- JS files -->
+        <script src="{% static 'bootstrap-4/js/main_js/jquery-3.3.1.min.js'%} ></script>
+        <script src="{% static 'bootstrap-4/js/main_js/slick.min.js'%} ></script>
+        <script src="{% static 'bootstrap-4/js/main_js/bootstrap.min.js'%} ></script>
+        <script src="{% static 'bootstrap-4/js/main_js/test.js'%} ></script>
+
+    </body>
+    
+</html>
