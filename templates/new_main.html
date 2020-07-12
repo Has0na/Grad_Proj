@@ -127,24 +127,24 @@
 
               <div class="row form-group">
                 <div class="col-md-6 mb-3 mb-md-0">
-                  <label class="text-black" for="fname">First Name  :  Last Name</label>
+                  <label class="text-black" for="fname"> Name :  {{ n }}</label>
                 </div>
                 <div class="col-md-6">
-                  <label class="text-black" for="lname">Student ID</label>
+                  <label class="text-black" for="lname">Student ID : {{ id }}</label>
                 </div>
               </div>
 
               <div class="row form-group">
 
                 <div class="col-md-12">
-                  <label class="text-black" for="email">Email : </label>
+                  <label class="text-black" for="email">Email : {{ mail }}</label>
                 </div>
               </div>
 
               <div class="row form-group">
 
                 <div class="col-md-12">
-                  <label class="text-black" for="subject">Adress : </label>
+                  <label class="text-black" for="subject">Adress : {{ address }}</label>
                 </div>
               </div>
 
@@ -167,21 +167,28 @@
           <div class="col-md-5"  data-aos="fade" data-aos-delay="100">
 
             <div class="p-4 mb-3 bg-white">
-              <p class="mb-0 font-weight-bold">Register for Courses</p>
-              <p class="mb-4">See your available courses and start your advising process with AAAS System</p>
-              <p><a href="{% url 'courseregistration' %}" class="btn btn-primary px-4 py-2 text-white">Register</a></p>
-{#              <p class="mb-0 font-weight-bold"></p>#}
-{#              <p class="mb-4"><a href="#">+1 232 3235 324</a></p>#}
-{##}
-{#              <p class="mb-0 font-weight-bold">Email Address</p>#}
-{#              <p class="mb-0"><a href="#">youremail@domain.com</a></p>#}
+                  <h3 class="h5 text-black mb-3">Check Course Category</h3>
+                  <p>Enter to review your Courses and Their Description From your Academic profile  </p>
+                  <p><a href="{% url 'report' %}" class="btn btn-primary px-4 py-2 text-white">Course Catalog</a></p>
+            </div>
+
+            <div class="p-4 mb-3 bg-white">
+                  <p class="mb-0 font-weight-bold">Register for Courses</p>
+                  <p class="mb-4">See your available courses and start your advising process with AAAS System</p>
+                  <p><a href="{% url 'courseregistration' %}" class="btn btn-primary px-4 py-2 text-white">Register</a></p>
+    {#              <p class="mb-0 font-weight-bold"></p>#}
+    {#              <p class="mb-4"><a href="#">+1 232 3235 324</a></p>#}
+    {##}
+    {#              <p class="mb-0 font-weight-bold">Email Address</p>#}
+    {#              <p class="mb-0"><a href="#">youremail@domain.com</a></p>#}
             </div>
 
             <div class="p-4 mb-3 bg-white">
               <h3 class="h5 text-black mb-3">Student Academic Report</h3>
-              <p>Click to see and review your Academic process and history From your Academic profile  </p>
-              <p><a href="{% url 'report' %}" class="btn btn-primary px-4 py-2 text-white">Report Card</a></p>
+              <p>Click to see your Academic progress and Your Grades</p>
+              <p><a href="{% url 'json_test' %}" class="btn btn-primary px-4 py-2 text-white">Report Card</a></p>
             </div>
+
 
           </div>
         </div>
@@ -212,4 +219,5 @@
   <script src="{% static 'bootstrap-4/js/contact_js/main.js' %}"></script>
 
   </body>
+
 </html>

@@ -22,6 +22,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.signIn, name="$"),
     url(r'^postsign/', views.postsign),
+    url(r'^regsignin/', views.reglogin, name="regsignin"),
     url(r'^regester/', views.register_Details, name="regester"),
     url(r'^postsignup/', views.postsignup, name='postsignup'),
     url(r'^mainstu/', views.mainstu, name='mainstu'),
@@ -32,6 +33,9 @@ urlpatterns = [
     url(r'^Log_Out/', views.logout, name='Log_Out'),
     url(r'^about_st/', views.aboutst, name='about_st'),
     url(r'^report/', views.report, name='report'),
+    # url(r'^registrer/', views.registrer_Updates, name='registrer'),
+    url(r'^submit_course/', views.course_submit, name='submit_course'),
+
     url(r'^courseregistration/', views.course_registration, name='courseregistration'),
 
 

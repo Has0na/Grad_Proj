@@ -113,21 +113,43 @@ courses = {"IT Fundamentals": ["Credits: 3 Hours", "Prerequisites: without",
                                   "Contents: Basics of key-frame animation, camera animation, forward and inverse kinematics, particle systems, rigid body simulation, flocking, autonomous behavior, modeling natural phenomena such as water and gases, animation of articulated structures, facial animation, clothes, scripting system, morphing, motion capture, and deformation."],
            "Advanced Database": ["Credits: 3 Hours", "Prerequisites: Database",
                                  "Contents: Data and database administration: Transaction processing; Using a database management system from an application development environment; Use of database management systems in an enterprise system context; Data / information architecture; Data security management. Basic data security principles. Data security implementation: Data quality management. Data quality audits. Data quality improvement: Business intelligence. On-line analytic processing. Data warehousing."]}
+
+
 def getCoursesDescrition():
-    name = courses.keys()
+    name = []
     credit = []
     pre = []
     cont = []
     for i in courses:
+        name.append(i)
         # print(courses [i])
         if type(courses[i]) == list:
             sub = courses[i]
             credit.append(sub[0])
             pre.append(sub[1])
             cont.append(sub[2])
+    # print(name)
+    # print(credit)
+    # print(pre)
+    # print(cont)
 
-    print(name)
-    print(credit)
-    print(pre)
-    print(cont)
-    return [name, credit, pre, cont]
+    all_Disc = [name, credit, pre, cont]
+
+    return all_Disc
+
+
+def getCredithours():
+    name = []
+    hour = []
+    for i in courses:
+        name.append(i)
+        if type(courses[i]) == list:
+            sub = courses[i]
+            hour.append(sub[0][9])  # TODO: [ When Connecting with firebase Will Change SUb.length ]
+    credits_h = dict(zip(name, hour))
+    # print(credits_h)
+    return credits_h
+
+
+getCoursesDescrition()
+getCredithours()

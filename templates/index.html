@@ -1,46 +1,302 @@
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
+{#{% if msg %}#}
+{#<script>#}
+{#     alert('{{ msg }}');#}
+{#</script>#}
+{#{% endif %}#}
+
+<html lang='en'>
+
 <head>
-	<meta charset="UTF-8">
-	<title>Charchter Form</title>
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
-  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-
-
+    <meta charset='UTF-8'>
+    <title>ٍRegister Courses</title>
+    <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.8.1/css/all.css'>
+    <link rel='stylesheet' href='{% static 'css/SF2_styles.css' %}'>
 </head>
-<body>
-<div class="header">
-        <div class="inner_header">
-            <div class="logo_container">
-                <h1>AA<span>AS</span></h1>
-            </div>
-            <ul class="navigation">
-                <a  href="#home" >Home<span class="sr-only">(current)</span></a>
-                <a  href="#Portfolio">Profile</a>
 
-                <a  href="#Contact">Contact</a>
-            </ul>
+<body>
+
+<form id="formPr">
+    <!-- ------------This is the 1st Grade Courses-------------------------------- -->
+    <div class='container'>
+        <div class='wrapper'>
+            <div class='title'>
+                First Priority Courses
+            </div>
+            <br>
+            <div class='wrapper_inside'>
+
+
+                <div class='form'>
+
+                    <div class='group' id='0'>
+                        <input type='checkbox' id='1p'/>
+                        <label for='First Priority'>First Priority</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- -----------------This is the 2nd Grade Courses------------------------------ -->
+
+        <div class='wrapper'>
+            <div class='title'>
+                Second Priority Courses
+            </div>
+            <br>
+            <div class='wrapper_inside'>
+
+                <div class='form'>
+
+                    <div class='group' id='1'>
+                        <input type='checkbox' id='2p'/>
+                        <label for='Second Priority'>Second Priority</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- ------------This is the 3rdt Grade Courses-------------------------------- -->
+
+        <div class='wrapper'>
+            <div class='title'>
+                Third Priority Courses
+            </div>
+            <br>
+            <div class='wrapper_inside'>
+
+
+                <div class='form'>
+
+                    <div class='group' id='2'>
+                        <input type='checkbox' id='1p'/>
+                        <label for='Third Priority'>Third Priority</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- -----------------This is the 4th Grade Courses------------------------------ -->
+
+        <div class='wrapper'>
+            <div class='title'>
+                Forth Priority Courses
+            </div>
+            <br>
+            <div class='wrapper_inside'>
+
+                <div class='form'>
+
+                    <div class='group' id='3'>
+                        <input type='checkbox' id='2p'/>
+                        <label for='Forth Priority'>Forth Priority</label>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+</form>
+<div class="btn_center">
+    <div class="wrapper5">
+        <div class="btn">
 
+            <a href="{% url 'about_st' %}">Submit</a>
 
-<div class="wrapper">
-  <div class="title">
-    
-  </div>
-  
-  
-    <div class="form">
-    
-    <button type="button" class="btn inhome" >Student</button>
+        </div>
+    </div>
 </div>
-    <div class="form">
-    <button type="button" class="btn inhome">Proffessor</button>
-   
-</div>
-   
-    
-	
+
 </body>
+
+<script>
+    // ---------------------------First Priority Form------------------------------------
+    var P1=0,P2=0,P3=0,P4=0,prtotal=0;
+    var allcources = JSON.parse("{{data|escapejs}}");
+    var checkbox;
+    function check_Creation(allcources, chkbox) {
+        for (j = 0; j < 4; j++){
+        var app = document.getElementById(j);
+        app.innerHTML = '';
+        var subj = allcources[j];
+        for (let i = 0; i < subj.length; i++) {
+        var item = document.createElement('div');
+        item.setAttribute('class', 'check_item');
+        chkbox = document.createElement('input');
+
+        // Assigning the attributes         // to created checkbox
+        chkbox.type = "checkbox";
+        chkbox.name = "name";
+        chkbox.value = subj[i];
+        chkbox.id =  subj[i];
+        chkbox.setAttribute('class', 'chekboxPr');
+
+        // creating label for checkbox
+        var label = document.createElement('label');
+        // assigning attributes for         // the created label tag
+        label.htmlFor = "id";
+        // appending the created text to    // the created label tag
+        label.appendChild(document.createTextNode(subj[i]));
+        item.appendChild(chkbox);
+        item.appendChild(label);
+        app.append(item)
+
+                    switch(j) {
+              case 0:
+                  chkbox.defaultChecked = true
+                  if (chkbox.checked == true)
+                    {prtotal+=3;}
+                break;
+              case 1:
+                  chkbox.checked = true
+                    if (chkbox.checked == true)
+                    {prtotal+=3;}
+                break;
+              case 2:
+                    chkbox.checked = true
+                    if (chkbox.checked == true)
+                    {prtotal+=3;}
+                break;
+              case 3:
+                  if (prtotal<18)
+                    {
+                        chkbox.checked = true;
+                        prtotal+=3;
+                    }
+                break;
+            }
+        }
+    }
+}
+
+    check_Creation(allcources, checkbox);
+    console.log(prtotal);
+
+
+
+    {#var allcources = JSON.parse("{{data|escapejs}}");#}
+    {#var P1=0,P2=0,P3=0,P4=0;#}
+    {#var app = document.getElementById('1stPr');#}
+    {#app.innerHTML = '';#}
+    {#subj1 = allcources[0];#}
+    {#console.log(subj1)#}
+    {#for (i = 0; i < subj1.length; i++) {#}
+    {#    var item = document.createElement('div');#}
+    {#    item.setAttribute('class', 'check_item');#}
+    {#    var checkbox = document.createElement('input');#}
+    {##}
+    {#    // Assigning the attributes         // to created checkbox#}
+    {#    checkbox.type = "checkbox";#}
+    {#    checkbox.name = "name";#}
+    {#    checkbox.value = subj1[i];#}
+    {#    checkbox.id =  subj1[i];#}
+    {#    checkbox.setAttribute('class', 'chekboxPr');#}
+    {##}
+    {#    // creating label for checkbox#}
+    {#    var label = document.createElement('label');#}
+    {#    // assigning attributes for         // the created label tag#}
+    {#    label.htmlFor = "id";#}
+    {#    // appending the created text to    // the created label tag#}
+    {#    label.appendChild(document.createTextNode(subj1[i]));#}
+    {#    item.appendChild(checkbox);#}
+    {#    item.appendChild(label);#}
+    {#    app.append(item)#}
+    {#    P1++;#}
+//    }
+
+    // ---------------------------Second Priority Form------------------------------------
+
+    {#app = document.getElementById('2ndPr');#}
+    {##}
+    {#app.innerHTML = '';#}
+    {##}
+    {#var subjpr2 = allcources[1];#}
+    {##}
+    {#for (i = 0; i < subjpr2.length; i++) {#}
+    {#    var item = document.createElement('div');#}
+    {#    item.setAttribute('class', 'check_item');#}
+    {#    var checkbox = document.createElement('input');#}
+    {##}
+    {#    // Assigning the attributes         // to created checkbox#}
+    {#    checkbox.type = "checkbox";#}
+    {#    checkbox.name = "name";#}
+    {#    checkbox.value = subjpr2[i];#}
+    {#    checkbox.id =  subjpr2[i];#}
+    {#    checkbox.setAttribute('class', 'chekboxPr');#}
+    {##}
+    {#    // creating label for checkbox#}
+    {#    var label = document.createElement('label');#}
+    {#    // assigning attributes for         // the created label tag#}
+    {#    label.htmlFor = "id";#}
+    {#    // appending the created text to    // the created label tag#}
+    {#    label.appendChild(document.createTextNode(subjpr2   [i]));#}
+    {#    item.appendChild(checkbox);#}
+    {#    item.appendChild(label);#}
+    {#    app.append(item)#}
+    {#    P2++;#}
+    //}
+    {##}
+    {#// ---------------------------Third Priority Form------------------------------------#}
+    {##}
+    {#var app = document.getElementById('3rdPr');#}
+    {#app.innerHTML = '';#}
+    {#subj1 = allcources[2];#}
+    {##}
+    {#for (i = 0; i < subj1.length; i++) {#}
+    {#    var item = document.createElement('div');#}
+    {#    item.setAttribute('class', 'check_item');#}
+    {#    var checkbox = document.createElement('input');#}
+    {##}
+    {#    // Assigning the attributes         // to created checkbox#}
+    {#    checkbox.type = "checkbox";#}
+    {#    checkbox.name = "name";#}
+    {#    checkbox.value = subj1[i];#}
+    {#    checkbox.id = subj1[i];#}
+    {#    checkbox.setAttribute('class', 'chekboxPr');#}
+    {##}
+    {#    // creating label for checkbox#}
+    {#    var label = document.createElement('label');#}
+    {#    // assigning attributes for         // the created label tag#}
+    {#    label.htmlFor = "id";#}
+    {#    // appending the created text to    // the created label tag#}
+    {#    label.appendChild(document.createTextNode(subj1[i]));#}
+    {#    item.appendChild(checkbox);#}
+    {#    item.appendChild(label);#}
+    {#    app.append(item)#}
+    {#    P3++;#}
+  //  {
+    {##}
+    {#// ---------------------------Forth Priority Form------------------------------------#}
+    {##}
+    {#var app = document.getElementById('4ThPr');#}
+    {#app.innerHTML = '';#}
+    {#subj1 = allcources[3];#}
+    {#for (i = 0; i < subj1.length; i++) {#}
+    {#    var item = document.createElement('div');#}
+    {#    item.setAttribute('class', 'check_item');#}
+    {#    var checkbox = document.createElement('input');#}
+    {##}
+    {#    // Assigning the attributes         // to created checkbox#}
+    {#    checkbox.type = "checkbox";#}
+    {#    checkbox.name = "name";#}
+    {#    checkbox.value = subj1[i];#}
+    {#    checkbox.id = subj1[i];#}
+    {#    checkbox.setAttribute('class', 'chekboxPr');#}
+    {##}
+    {#    // creating label for checkbox#}
+    {#    var label = document.createElement('label');#}
+    {#    // assigning attributes for         // the created label tag#}
+    {#    label.htmlFor = "id";#}
+    {#    // appending the created text to    // the created label tag#}
+    {#    label.appendChild(document.createTextNode(subj1[i]));#}
+    {#    item.appendChild(checkbox);#}
+    {#    item.appendChild(label);#}
+    {#    app.append(item)#}
+    {#    P4++;#}
+    //}
+
+</script>
+
 </html>

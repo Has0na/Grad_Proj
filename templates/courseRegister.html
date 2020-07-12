@@ -1,9 +1,9 @@
 {% load static %}
-{#{% if msg %}#}
-{#<script>#}
-{#     alert('{{ msg }}');#}
-{#</script>#}
-{#{% endif %}#}
+{% if msg %}
+<script>
+     alert('{{ msg }}');
+</script>
+{% endif %}
 
 <html lang='en'>
 
@@ -103,7 +103,7 @@
     <div class="wrapper5">
         <div class="btn">
 
-            <a href="{% url 'about_st' %}">Submit</a>
+            <a href="{% url 'submit_course' %}">Submit</a>
 
         </div>
     </div>
@@ -113,69 +113,135 @@
 
 <script>
     // ---------------------------First Priority Form------------------------------------
-    var P1=0,P2=0,P3=0,P4=0,prtotal=0;
+    var P1 = 0, P2 = 0, P3 = 0, P4 = 0, prtotal = 0;
     var allcources = JSON.parse("{{data|escapejs}}");
+    var data = JSON.parse("{{Dict|escapejs}}");
     var checkbox;
-    function check_Creation(allcources, chkbox) {
-        for (j = 0; j < 4; j++){
+
+    {#    function check_Creation(allcources, chkbox) {#}
+    {#        for (j = 0; j < 4; j++){#}
+    {#        var app = document.getElementById(j);#}
+    {#        app.innerHTML = '';#}
+    {#        var subj = allcources[j];#}
+    {#        for (i = 0; i < subj.length; i++) {#}
+    {#        var item = document.createElement('div');#}
+    {#        item.setAttribute('class', 'check_item');#}
+    {#        chkbox = document.createElement('input');#}
+    {##}
+    {#        // Assigning the attributes         // to created checkbox#}
+    {#        chkbox.type = "checkbox";#}
+    {#        chkbox.name = "name";#}
+    {#        chkbox.value = subj[i];#}
+    {#        chkbox.id =  subj[i];#}
+    {#        chkbox.setAttribute('class', 'chekboxPr');#}
+    {##}
+    {#        // creating label for checkbox#}
+    {#        var label = document.createElement('label');#}
+    {#        // assigning attributes for         // the created label tag#}
+    {#        label.htmlFor = "id";#}
+    {#        // appending the created text to    // the created label tag#}
+    {#        label.appendChild(document.createTextNode(subj[i]));#}
+    {#        item.appendChild(chkbox);#}
+    {#        item.appendChild(label);#}
+    {#        app.append(item)#}
+    {##}
+    {#                    switch(j) {#}
+    {#              case 0:#}
+    {#                  chkbox.defaultChecked = true#}
+    {#                  if (chkbox.checked == true)#}
+    {#                    {prtotal+=3;}#}
+    {#                break;#}
+    {#              case 1:#}
+    {#                  chkbox.checked = true#}
+    {#                    if (chkbox.checked == true)#}
+    {#                    {prtotal+=3;}#}
+    {#                break;#}
+    {#              case 2:#}
+    {#                    chkbox.checked = true#}
+    {#                    if (chkbox.checked == true)#}
+    {#                    {prtotal+=3;}#}
+    {#                break;#}
+    {#              case 3:#}
+    {#                  if (prtotal<18)#}
+    {#                    {#}
+    {#                        chkbox.checked = true;#}
+    {#                        prtotal+=3;#}
+    {#                    }#}
+    {#                break;#}
+    {#            }#}
+    {#        }#}
+    {#    }#}
+    //}
+    {##}
+
+    //function check_Dict(allcources, chkbox) {
+
+    var selecteCourses = [];
+
+    for (j = 0; j < 4; j++) {
         var app = document.getElementById(j);
         app.innerHTML = '';
-        subj = allcources[j];
+        var subj = allcources[j];
         for (i = 0; i < subj.length; i++) {
-        var item = document.createElement('div');
-        item.setAttribute('class', 'check_item');
-        chkbox = document.createElement('input');
+            var item = document.createElement('div');
+            item.setAttribute('class', 'check_item');
+            chkbox = document.createElement('input');
+            // Assigning the attributes         // to created checkbox
+            chkbox.type = "checkbox";
+            chkbox.name = subj[i];
+            chkbox.value = subj[i];
+            chkbox.id = subj[i];
+            chkbox.setAttribute('class', 'chekboxPr');
 
-        // Assigning the attributes         // to created checkbox
-        chkbox.type = "checkbox";
-        chkbox.name = "name";
-        chkbox.value = subj[i];
-        chkbox.id =  subj[i];
-        chkbox.setAttribute('class', 'chekboxPr');
+            // creating label for checkbox
+            var label = document.createElement('label');
+            // assigning attributes for         // the created label tag
+            label.htmlFor = "id";
+            // appending the created text to    // the created label tag
+            label.appendChild(document.createTextNode(subj[i]));
+            item.appendChild(chkbox);
+            item.appendChild(label);
+            app.append(item);
 
-        // creating label for checkbox
-        var label = document.createElement('label');
-        // assigning attributes for         // the created label tag
-        label.htmlFor = "id";
-        // appending the created text to    // the created label tag
-        label.appendChild(document.createTextNode(subj[i]));
-        item.appendChild(chkbox);
-        item.appendChild(label);
-        app.append(item)
+            // assign function to onclick property of checkbox
+            chkbox.onclick = function () {
+                // access properties using this keyword
+                if (this.checked) {
+                    selecteCourses.push(this.id);
+                    console.log(this.id);
+                    prtotal += parseInt(data[this.name]);
+                    console.log(prtotal);
+                    alert(this.value);
+                    console.log(selecteCourses)
+                } else {
+                    console.log(this.id);
+                    prtotal -= parseInt(data[this.name]);
+                    console.log(prtotal);
+                    selecteCourses.splice(selecteCourses.indexOf(this.id), 1)
+                    console.log(selecteCourses)
 
-                    switch(j) {
-              case 0:
-                  chkbox.defaultChecked = true
-                  if (chkbox.checked == true)
-                    {prtotal+=3;}
-                break;
-              case 1:
-                  chkbox.checked = true
-                    if (chkbox.checked == true)
-                    {prtotal+=3;}
-                break;
-              case 2:
-                    chkbox.checked = true
-                    if (chkbox.checked == true)
-                    {prtotal+=3;}
-                break;
-              case 3:
-                  if (prtotal<18)
-                    {
-                        chkbox.checked = true;
-                        prtotal+=3;
-                    }
-                break;
+                }
+            }
+
+        }
+    }
+
+    for (var x in data) {
+        var credit = document.getElementById(x)
+        if (chkbox.checked == true) {
+            if (x == credit.toString()) {
+                prtotal += x[data];
             }
         }
     }
-}
+    //}
 
 
+    //check_Creation(allcources, checkbox);
+    //  check_Dict(allcources,checkbox);
 
-    check_Creation(allcources, checkbox);
+
     console.log(prtotal);
-
 
 
     {#var allcources = JSON.parse("{{data|escapejs}}");#}
@@ -206,7 +272,7 @@
     {#    item.appendChild(label);#}
     {#    app.append(item)#}
     {#    P1++;#}
-//    }
+    //    }
 
     // ---------------------------Second Priority Form------------------------------------
 
@@ -268,7 +334,7 @@
     {#    item.appendChild(label);#}
     {#    app.append(item)#}
     {#    P3++;#}
-  //  {
+    //  {
     {##}
     {#// ---------------------------Forth Priority Form------------------------------------#}
     {##}
