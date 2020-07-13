@@ -114,7 +114,7 @@ courses = {"IT Fundamentals": ["Credits: 3 Hours", "Prerequisites: without",
            "Advanced Database": ["Credits: 3 Hours", "Prerequisites: Database",
                                  "Contents: Data and database administration: Transaction processing; Using a database management system from an application development environment; Use of database management systems in an enterprise system context; Data / information architecture; Data security management. Basic data security principles. Data security implementation: Data quality management. Data quality audits. Data quality improvement: Business intelligence. On-line analytic processing. Data warehousing."]}
 
-
+# ------------------------------^^ Courses Discription ^^------------------------------- #
 def getCoursesDescrition():
     name = []
     credit = []
@@ -122,22 +122,14 @@ def getCoursesDescrition():
     cont = []
     for i in courses:
         name.append(i)
-        # print(courses [i])
         if type(courses[i]) == list:
             sub = courses[i]
             credit.append(sub[0])
             pre.append(sub[1])
             cont.append(sub[2])
-    # print(name)
-    # print(credit)
-    # print(pre)
-    # print(cont)
-
     all_Disc = [name, credit, pre, cont]
-
     return all_Disc
-
-
+# ------------------------------^^ Credit Hours ^^------------------------------- #
 def getCredithours():
     name = []
     hour = []
@@ -149,7 +141,5 @@ def getCredithours():
     credits_h = dict(zip(name, hour))
     # print(credits_h)
     return credits_h
-
-
 getCoursesDescrition()
 getCredithours()

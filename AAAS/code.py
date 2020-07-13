@@ -76,14 +76,11 @@ prerequisite = {"IT Fundamentals": None, "Mathematics I": None, "Physics I": Non
 
 def courses_check(studied, failed):
     can_registered = []
-    # Not Studied Courses
-    for i in studied:
+    for i in studied: # Not Studied Courses
         if i in prerequisite:
             del prerequisite[i]
     not_studied = list(prerequisite.keys())
-
-    # Courses that can be Registered
-    for i in prerequisite:
+    for i in prerequisite:  # Courses that can be Registered
         if prerequisite[i] in studied or prerequisite[i] is None or prerequisite[i] in failed:
             if i not in can_registered:
                 can_registered.append(i)
@@ -94,18 +91,14 @@ def courses_check(studied, failed):
                 if s not in studied:
                     flag = 0
                     break
-
             if flag:
                 if i not in can_registered:
                     can_registered.append(i)
-
-    # Priority Check
     fp_courses = []
     sp_courses = []
     thp_courses = []
     fop_courses = []
-    for i in can_registered:
-        #    i + " : %s" % priorety.get(i)
+    for i in can_registered: # Priority Check
         if priorety.get(i) == 1:
             fp_courses.append(i)
         elif priorety.get(i) == 2:
@@ -114,7 +107,6 @@ def courses_check(studied, failed):
             thp_courses.append(i)
         else:
             fop_courses.append(i)
-
     allcources = [fp_courses, sp_courses, thp_courses, fop_courses]
-    print(allcources)
+    # print(allcources)
     return allcources
