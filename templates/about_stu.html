@@ -22,6 +22,7 @@
 
   </head>
   <body>
+                         {% csrf_token %}
 
   <div class="site-wrap">
 
@@ -361,11 +362,90 @@
        <div class="mb-5" style="width: 50%; margin:auto;">
             <br>
               <h3 class="h5 text-black mb-3" style="width: 50%; margin:auto;">Search</h3>
-              <form action="#" method="post"style="width: 60%; margin:auto;">
-                <div class="form-group d-flex">
-                  <input type="text" class="form-control" placeholder="Search keyword and hit enter...">
+                                    {% csrf_token %}
+              <form id="searchForm" action="javascript:search();">
+   <div class="input-group">
+      <button id="go" class="btn btn-default" type="button"
+              onclick="document.getElementById('searchForm').submit(); return false;">Go
+      </button>
+      <input type="text" id="searchItem" class="form-control" placeholder="Suchbegriff">
+   </div>
+</form>
+
+<div class="spacer30"></div>
+<div class="row" id="Grafikkarte">
+   <div class="col-md-2">
+      <p><b>Grafikkarte</b></p>
+   </div>
+   <div class="col-md-3">
+      <p><i>Grafikkarte</i></p>
+   </div>
+   <div class="col-md-7">
+      <p>Some short description here ...</p>
+   </div>
+</div>
+<div class="spacer30"></div>
+<div class="row" id="sound">
+   <div class="col-md-2">
+      <p><b>sound</b></p>
+   </div>
+   <div class="col-md-3">
+      <p><i>sound</i></p>
+   </div>
+   <div class="col-md-7">
+      <p>Some short description here ...</p>
+   </div>
+</div>
+<div class="spacer30"></div>
+<div class="row" id="audio">
+   <div class="col-md-2">
+      <p><b>audio</b></p>
+   </div>
+   <div class="col-md-3">
+      <p><i>audio</i></p>
+   </div>
+   <div class="col-md-7">
+      <p>Some short description here ...</p>
+   </div>
+</div>
+<div class="spacer30"></div>
+<div class="row" id="trip">
+   <div class="col-md-2">
+      <p><b>machete</b></p>
+   </div>
+   <div class="col-md-3">
+      <p><i>machete</i></p>
+   </div>
+   <div class="col-md-7">
+      <p>Some short description here ...</p>
+   </div>
+</div>
+<div class="spacer30"></div>
+<div class="row" id="idiologie">
+   <div class="col-md-2">
+      <p><b>idiologie</b></p>
+   </div>
+   <div class="col-md-3">
+      <p><i>idiologie</i></p>
+   </div>
+   <div class="col-md-7">
+      <p>Some short description here ...</p>
+   </div>
+</div>
+<div class="spacer30"></div>
+<div class="row" id="frau">
+   <div class="col-md-2">
+      <p><b>frau</b></p>
+   </div>
+   <div class="col-md-3">
+      <p><i>frau</i></p>
+   </div>
+   <div class="col-md-7">
+      <p>Some short description here ...</p>
+   </div>
+</div>
+
                 </div>
-              </form>
             </div>
 
 
@@ -447,7 +527,7 @@
         second_block.setAttribute('class', 'lh-content');
         var nline = document.createElement('address');
         span = document.createElement('span');
-        span.setAttribute('class', 'category');
+        span.setAttribute('class', 'category'+i);
         address1 = document.createElement('address1');
         address2 = document.createElement('address2');
         address3 = document.createElement('address3');
@@ -486,7 +566,28 @@
         // Assigning the attributes         // to created checkbox
 
 
+                       function search() {
 
+                           var name = document.getElementById("searchForm").elements["searchItem"].value;
+                           console.log(name);
+                           var pattern = name.toLowerCase();
+                           console.log(pattern);
+                           var targetId = "";
+                           console.log(targetId);
+                           var divs = document.getElementsByClassName("lh-content");
+                           for (var i = 0; i < divs.length; i++) {
+                              var para = divs[i].getElementsByTagName("span");
+                              console.log(para);
+                              var index = para[0].innerText.toLowerCase().indexOf(pattern);
+                              console.log(index);
+                              if (index !== -1) {
+                                 targetId = divs[i].parentNode.id;
+                                 console.log(targetId);
+                                 document.getElementById(targetId).scrollIntoView();
+                                 break;
+                              }
+                           }
+                        }
 
 
         {#// creating label for checkbox#}

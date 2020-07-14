@@ -91,6 +91,7 @@ body {
     width: 20%;
     horiz-align: center;
     justify-content: center;
+
 }
 
 .btn_center {
@@ -103,16 +104,28 @@ body {
     display: flex;
 }
 
+.chk_center {
+    position: absolute;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 55px;
+    height: auto;
+    bottom: 20%;
+    display: flex;
+}
+
 
 /* ----------------- This is Button Css ------------------- */
 
-.wrapper5 .btn {
-    width: 70%;
+.chkwrapper5 .chk {
+    width: 100%;
     margin: 4px auto 0;
     background: #fdfdfe;
     text-align: center;
     padding: 4px;
     border-radius: 30px;
+    margin-bottom: 50px;
 }
 
 .wrapper5.btn a {
