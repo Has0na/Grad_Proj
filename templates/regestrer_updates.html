@@ -79,7 +79,8 @@
     </header>
 
 
-    <div class="site-blocks-cover inner-page-cover overlay" style="background-image: url({% static 'img/hero_1.jpg' %})"
+    <div class="site-blocks-cover inner-page-cover overlay"
+         style="background-image: url({% static 'img/RegUpdates.jpg' %})"
          ;
          data-aos="fade" data-stellar-background-ratio="0.5">
         <div class="container">
@@ -250,12 +251,10 @@
 <script>
 
     var firebase = firebase.database();
-    //var registeredCourses=[], failedCourses=[];
-    //var studiedCourses={};
+    var receivedData, tableData;
     var studiedDict = [], failed = [], registered = [];//
     // "Foundations of Information Systems", "Hand Drawing", "History of Computing";
     // "Human Rights", "IT Fundamentals", "Interpersonal Communication", "Mathematics I"
-    var receivedData, tableData;
 
     //------------------------^^ Enable Get Courses ^^-------------------------//
     function EnableDisable(fname) {
@@ -294,10 +293,6 @@
         document.getElementById("container").appendChild(label).appendChild(select);
         console.log(stID);
         console.log(registered);
-        {#var studied = firebase.ref('users/').child(stID).child('studied_courses').get().val();#}
-        {#console.log(studied);#}
-        {#var failed = firebase.ref('users/').child(user_id).child('failed_courses').get().val();#}
-        {#console.log(failed)#}
 
         select.onchange = function () {
             alert("Which List!");
@@ -317,18 +312,18 @@
                     break;
 
                 case "Studied":
-                {#receivedData = studiedDict;#}
-                {#var leadsRef2 = firebase.ref('users/' + stID + '/studied_courses/');#}
-                {#leadsRef2.on('value', function(snapshot) {#}
-                {#snapshot.forEach(function(childSnapshot) {#}
-                {##}
-                {#var childData = childSnapshot.val();#}
-                {#console.log(childData);#}
-                {#receivedData.push(childData);#}
-                {#//var key = Object.keys(snapshot.val())[0];#}
-                {#console.log(receivedData);#}
-                {#    });#}
-                    // {#});#}
+                    receivedData = studiedDict;
+                    var leadsRef2 = firebase.ref('users/' + stID + '/studied_courses/');
+                    leadsRef2.on('value', function (snapshot) {
+                        snapshot.forEach(function (childSnapshot) {
+
+                            var childData = childSnapshot.val();
+                            console.log(childData);
+                            receivedData.push(childData);
+                            //var key = Object.keys(snapshot.val())[0];
+                            console.log(receivedData);
+                        });
+                    });
 
                     alert("studied");
                     break;
@@ -352,23 +347,6 @@
 
         }
 
-
-    }
-
-
-    function studied() {
-        receivedData = studiedDict;
-        var leadsRef2 = firebase.ref('users/' + stID + '/studied_courses/');
-        leadsRef2.on('value', function (snapshot) {
-            snapshot.forEach(function (childSnapshot) {
-
-                var childData = childSnapshot.val();
-                console.log(childData);
-                receivedData.push(childData);
-                //var key = Object.keys(snapshot.val())[0];
-                console.log(receivedData);
-            });
-        });
 
     }
 
