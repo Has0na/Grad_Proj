@@ -1,8 +1,6 @@
 from json import *
-
 from django.shortcuts import render
 from pyrebase import pyrebase
-
 from AAAS.code import *
 from AAAS.courses import *
 
@@ -28,7 +26,7 @@ def reglogin(request):
 
 
 # -------------------^^ Login page View { LogIn with Firebase Session } ^^------------------- #
-def regmain(request):
+def reg_log(request):
     # email = request.POST.get('email')
     # passw = request.POST.get("pass")
     # try:
@@ -56,19 +54,7 @@ def registrer_role(request):
 
 # -------------------^^ landing page View ^^------------------- #
 def reg_main(request):
-    return render(request, "regtst1.html")
-
-
-# -------------------^^ Git Student Courses List View ^^------------------- #
-def add_s(request):
-    return render(request, "studied.html")
-
-
-# -------------------^^ Git Student Courses List View ^^------------------- #
-def reset_pass(request):
-    authe.send_password_reset_email("email")
-    email2 = request.POST.get('email')
-    return render(request, "login.html")
+    return render(request, "index.html")
 
 
 # -------------------^^ Git Student Courses List View ^^------------------- #
@@ -99,12 +85,21 @@ def signIn(request):
 
 
 # -------------------^^ LogOut page View ^^------------------- #
-def logout(request):
+def logoutforStudent(request):
     try:
         del request.session['uid']
     except KeyError:
         pass
     return render(request, "newlogin.html")
+
+
+# -------------------^^ LogOut page View ^^------------------- #
+def logoutforRegistrer(request):
+    try:
+        del request.session['uid']
+    except KeyError:
+        pass
+    return render(request, "Registrer_Login.html")
 
 
 # -------------------^^ Get User Details Function ^^------------------- #
@@ -118,7 +113,7 @@ def getUser(request):
 
 
 # -------------------^^ Login page View { LogIn with Firebase Session } ^^------------------- #
-def postsign(request):
+def postsign_Student(request):
     email = request.POST.get('email')
     passw = request.POST.get("pass")
     try:
@@ -296,7 +291,6 @@ def aboutus(request):
     return render(request, "aboutus.html")
 
 
-
 # -------------------^^ Code Testin page View for features ^^------------------- #
 def code_test(request):
     # create data dictionary
@@ -317,7 +311,7 @@ def code_test(request):
 
 # ------------------------------------------- registrar functions-------------------------------
 # -------------------^^ Login page View { LogIn with Firebase Session } ^^------------------- #
-def postsign_reg(request):
+def postsign_registrer(request):
     email = request.POST.get('email')
     print(email)
     passw = request.POST.get("pass")

@@ -20,8 +20,8 @@ from . import views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.signIn, name="$"),
-    url(r'^postsign/', views.postsign),
-    url(r'^reglog/', views.postsign_reg, name="reglog"),
+    url(r'^postsign/', views.postsign_Student),
+    url(r'^reglog/', views.postsign_registrer, name="reglog"),
 
     url(r'^regester/', views.register_Details, name="regester"),
     # url(r'^postsignup/', views.postsignup, name='postsignup'),
@@ -30,7 +30,7 @@ urlpatterns = [
     url(r'^profile/', views.profile, name='profile'),
     url(r'^about_us/', views.aboutus, name='about_us'),
     url(r'^contact_us/', views.contact_us, name='contact_us'),
-    url(r'^Log_Out/', views.logout, name='Log_Out'),
+    url(r'^postsign/', views.logoutforStudent, name='postsign'),
     url(r'^about_st/', views.aboutst, name='about_st'),
     url(r'^report/', views.report, name='report'),
     url(r'^submit_course/', views.course_submit, name='submit_course'),
@@ -39,21 +39,13 @@ urlpatterns = [
 
     url(r'^regsignin/', views.reglogin, name="regsignin"),
     url(r'^registrerMain/', views.reg_main, name="registrerMain"),
-    url(r'^registrer/', views.regmain, name='registrer'),
+    url(r'^reghome/', views.reg_log, name='reghome'),
     url(r'^registrerrole/', views.registrer_role, name='registrerrole'),
 
-    #
-    url(r'^res/', views.reset_pass, name='res'),
 
     # url(r'^regester/', views.register, name="regester"),
     url(r'^post_add/', views.post_add, name='post_add'),
-    url(r'^add_s/', views.add_s, name='add_s'),
-    #
     url(r'^newuser/', views.newUser, name='newuser'),
-    #
-    # url(r'^fill/', views.fill_info, name='fill'),
-    # url(r'^printfill/', views.print_info, name='printfill'),
-    #
-    url(r'^logout/', views.logout, name='logout'),
+    url(r'^logout/', views.logoutforRegistrer, name='logout'),
 
 ]

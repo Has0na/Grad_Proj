@@ -52,7 +52,7 @@
                         {#                  <a href="{% url 'about_us' %}">About Us</a>#}
                         {#                    </li>#}
 
-                        <li class="ml-xl-3 login active"><a href="{% url 'Log_Out' %}"><span
+                        <li class="ml-xl-3 login active"><a href="{% url 'logout' %}"><span
                                 class="border-left pl-xl-4"></span>Sign Out</a></li>
 
 
@@ -175,8 +175,8 @@
                             <tr>
                                 <thead>
                                     <th style="padding: 10px 15px;vertical-align: middle;" >Remove</th>
-                                    <th style="padding: 10px 15px;vertical-align: middle;">Course</th>
                                     <th style="padding: 10px 15px;vertical-align: middle;">GPA</th>
+                                    <th style="padding: 10px 15px;vertical-align: middle;">Course</th>
                                 </thead>
                             </tr>
 
@@ -249,9 +249,9 @@
     var firebase = firebase.database();
     //var registeredCourses=[], failedCourses=[];
     //var studiedCourses={};
-    var studiedDict = [];//
-    var failed = []//["Foundations of Information Systems", "Hand Drawing", "History of Computing"];
-    var registered = ["Human Rights", "IT Fundamentals", "Interpersonal Communication", "Mathematics I"];
+    var studiedDict = [], failed = [], registered = [];//
+    // "Foundations of Information Systems", "Hand Drawing", "History of Computing";
+    // "Human Rights", "IT Fundamentals", "Interpersonal Communication", "Mathematics I"
     var receivedData,tableData;
 
         //------------------------^^ Enable Get Courses ^^-------------------------//
@@ -290,42 +290,6 @@
         label.htmlFor = "list";
         document.getElementById("container").appendChild(label).appendChild(select);
         console.log(stID);
-        registered = [];
-        studied=[];
-
-        var leadsRef = firebase.ref('users/' + stID + '/registered_courses/');
-        leadsRef.on('value', function(snapshot) {
-            snapshot.forEach(function(childSnapshot) {
-              var childData = childSnapshot.val();
-                console.log(childData);
-                registered.push(childData);
-
-            });
-        });
-            var leadsRef2 = firebase.ref('users/' + stID + '/studied_courses/');
-            leadsRef2.on
-            ('value', function(snapshot)
-            {
-            snapshot.forEach(function(childSnapshot)
-            {
-              var childData = childSnapshot.val();
-                console.log(childData);
-                studied.push(childData);
-            });
-            });
-
-            var leadsRef3 = firebase.ref('users/' + stID + '/failed_courses/');
-            leadsRef3.on
-            ('value', function(snapshot)
-            {
-            snapshot.forEach(function(childSnapshot)
-            {
-              var childData = childSnapshot.val();
-                console.log(childData);
-                failed.push(childData);
-            });
-            });
-
         console.log(registered);
                 {#var studied = firebase.ref('users/').child(stID).child('studied_courses').get().val();#}
                 {#console.log(studied);#}
@@ -338,14 +302,46 @@
          {
                 case "registered":
                     receivedData = registered;
-                    alert("Registered");
+                    var leadsRef = firebase.ref('users/' + stID + '/registered_courses/');
+                    leadsRef.on('value', function(snapshot) {
+                    snapshot.forEach(function(childSnapshot) {
+
+                    var childData = childSnapshot.val();
+                    console.log(childData);
+                    receivedData.push(childData);
+                    });
+                });alert("Registered");
                     break;
+
                 case "Studied":
-                    receivedData = studiedDict;
+                    {#receivedData = studiedDict;#}
+                    {#var leadsRef2 = firebase.ref('users/' + stID + '/studied_courses/');#}
+                    {#leadsRef2.on('value', function(snapshot) {#}
+                    {#snapshot.forEach(function(childSnapshot) {#}
+                    {##}
+                    {#var childData = childSnapshot.val();#}
+                    {#console.log(childData);#}
+                    {#receivedData.push(childData);#}
+                    {#//var key = Object.keys(snapshot.val())[0];#}
+                    {#console.log(receivedData);#}
+                    {#    });#}
+                   // {#});#}
+
                     alert("studied");
                     break;
+
                 case "Failed":
                     receivedData = failed;
+                    var leadsRef3 = firebase.ref('users/' + stID + '/failed_courses/');
+                    leadsRef3.on
+                    ('value', function(snapshot) {
+                    snapshot.forEach(function(childSnapshot) {
+
+                    var key = Object.keys(snapshot.val())[0];
+                    console.log(key);
+                    receivedData.push(Object.keys(snapshot.val()));
+                        });
+                    });
                     alert("Failed");
                     break;
 
@@ -354,7 +350,27 @@
         }
 
 
+
+
     }
+
+
+    function studied() {
+            receivedData = studiedDict;
+            var leadsRef2 = firebase.ref('users/' + stID + '/studied_courses/');
+            leadsRef2.on('value', function(snapshot) {
+            snapshot.forEach(function(childSnapshot) {
+
+            var childData = childSnapshot.val();
+            console.log(childData);
+            receivedData.push(childData);
+            //var key = Object.keys(snapshot.val())[0];
+            console.log(receivedData);
+                });
+            });
+
+    }
+
 
     //-----------------------Generate Table-----------------------------------
     function addRow() {
@@ -367,8 +383,9 @@
         var row = table.insertRow(rowCount);
 
         row.insertCell(0).innerHTML = '<input type="button" value = "Remove" class="btn btn-primary px-4 py-2 text-white" onClick="Javacsript:deleteRow(this)">';
-        row.insertCell(1).innerHTML = Course.value;
-        row.insertCell(2).innerHTML = GPA.value;
+        row.insertCell(1).innerHTML = GPA.value;
+        row.insertCell(2).innerHTML = Course.value;
+
 
 
     }
