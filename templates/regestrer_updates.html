@@ -48,15 +48,22 @@
                 <nav class="site-navigation position-relative text-right" role="navigation">
 
                     <ul class="site-menu js-clone-nav mr-auto d-none d-lg-block">
-                        {#                    <li >#}
-                        {#                  <a href="{% url 'about_us' %}">About Us</a>#}
-                        {#                    </li>#}
+
+                        <li>
+                            <img src="{% static 'img/avatar.png' %}" class="avatar"
+                                 style="border-radius: 50%;margin: auto;width: 25%;"></li>
+
+                        <li>
+                            <a href="{% url 'newuser' %}">Add New Student</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'registrerMain' %}">Main</a>
+                        </li>
 
                         <li class="ml-xl-3 login active"><a href="{% url 'logout' %}"><span
                                 class="border-left pl-xl-4"></span>Sign Out</a></li>
 
 
-                        {#                <li><a href="#" class="cta"><span class="bg-primary text-white rounded"></span></a></li>#}
                     </ul>
                 </nav>
             </div>
@@ -118,7 +125,8 @@
                                 {#% url 'getid'  %#}
                                 <button id="generate" class="btn btn-primary px-4 py-2 text-white" style="margin: 10px;"
                                         type="button" value="generateFromID" disabled="disabled"
-                                        onclick="getStudentDataByID();">Get Courses</button>
+                                        onclick="getStudentDataByID();">Get Courses
+                                </button>
 
                                 <div id="container" class="generate">
                                     <label class="text-black" for="coursesList">Courses List</label>
@@ -128,9 +136,11 @@
                                 <hr/>
 
                                 <div id="myDynamicTable">
-                                     <button id="create" type="button" value="Click here"
-                                             class="btn btn-primary px-4 py-2 text-white"
-                                             onclick="addRowFromdata();">View Table</button><br>
+                                    <button id="create" type="button" value="Click here"
+                                            class="btn btn-primary px-4 py-2 text-white"
+                                            onclick="addRowFromdata();">View Table
+                                    </button>
+                                    <br>
                                 </div>
                             </div>
                         </div>
@@ -157,7 +167,8 @@
                                         </tr>
 
 
-                                    </table><br>
+                                    </table>
+                                    <br>
 
                                     <button id="" type="button" style="margin: 10px;"
                                             class="btn btn-primary px-4 py-2 text-white"
@@ -169,38 +180,30 @@
                                     <b>Current data in the system ...</b>
                                     <br>
 
-                                    <table id="myTableData" border="1" cellpadding="2"style="
+                                    <table id="myTableData" border="1" cellpadding="2" style="
                                     border-collapse: separate;border-spacing: 0;color: #4a4a4d;">
 
-                            <tr>
-                                <thead>
-                                    <th style="padding: 10px 15px;vertical-align: middle;" >Remove</th>
-                                    <th style="padding: 10px 15px;vertical-align: middle;">GPA</th>
-                                    <th style="padding: 10px 15px;vertical-align: middle;">Course</th>
-                                </thead>
-                            </tr>
+                                        <tr>
+                                            <thead>
+                                            <th style="padding: 10px 15px;vertical-align: middle;">Remove</th>
+                                            <th style="padding: 10px 15px;vertical-align: middle;">GPA</th>
+                                            <th style="padding: 10px 15px;vertical-align: middle;">Course</th>
+                                            </thead>
+                                        </tr>
 
                                     </table>
                                     &nbsp;
                                 </div>
 
 
-
-
-                            <!--
-                                <div id="myDynamicTable">
-                                    <input type="button" id="create" value="Click here" onclick="addRowFromdata();">
-                                    to create a Table and add some data using JavaScript
-                                </div>
-                                -->
-
                             </div>
                         </div>
 
 
-                        <button onclick=submitCourses();  type="button" style="margin: 10px;"
+                        <button onclick=submitCourses(); type="button" style="margin: 10px;"
                                 href="{#% url 'registrer' %#}"
-                                class="btn btn-primary px-4 py-2 text-white">Submit</button>
+                                class="btn btn-primary px-4 py-2 text-white">Submit
+                        </button>
 
                     </form>
                 </div>
@@ -240,9 +243,9 @@
     </footer>
 </div>
 
-    <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-database.js"></script>
-    <script src="{% static 'js/main.js' %}"></script>
+<script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-database.js"></script>
+<script src="{% static 'js/main.js' %}"></script>
 
 <script>
 
@@ -252,9 +255,9 @@
     var studiedDict = [], failed = [], registered = [];//
     // "Foundations of Information Systems", "Hand Drawing", "History of Computing";
     // "Human Rights", "IT Fundamentals", "Interpersonal Communication", "Mathematics I"
-    var receivedData,tableData;
+    var receivedData, tableData;
 
-        //------------------------^^ Enable Get Courses ^^-------------------------//
+    //------------------------^^ Enable Get Courses ^^-------------------------//
     function EnableDisable(fname) {
         //Reference the Button.
         var btnSubmit = document.getElementById("generate");
@@ -291,41 +294,41 @@
         document.getElementById("container").appendChild(label).appendChild(select);
         console.log(stID);
         console.log(registered);
-                {#var studied = firebase.ref('users/').child(stID).child('studied_courses').get().val();#}
-                {#console.log(studied);#}
-                {#var failed = firebase.ref('users/').child(user_id).child('failed_courses').get().val();#}
-                {#console.log(failed)#}
+        {#var studied = firebase.ref('users/').child(stID).child('studied_courses').get().val();#}
+        {#console.log(studied);#}
+        {#var failed = firebase.ref('users/').child(user_id).child('failed_courses').get().val();#}
+        {#console.log(failed)#}
 
         select.onchange = function () {
             alert("Which List!");
-            switch (this.value)
-         {
+            switch (this.value) {
                 case "registered":
                     receivedData = registered;
                     var leadsRef = firebase.ref('users/' + stID + '/registered_courses/');
-                    leadsRef.on('value', function(snapshot) {
-                    snapshot.forEach(function(childSnapshot) {
+                    leadsRef.on('value', function (snapshot) {
+                        snapshot.forEach(function (childSnapshot) {
 
-                    var childData = childSnapshot.val();
-                    console.log(childData);
-                    receivedData.push(childData);
+                            var childData = childSnapshot.val();
+                            console.log(childData);
+                            receivedData.push(childData);
+                        });
                     });
-                });alert("Registered");
+                    alert("Registered");
                     break;
 
                 case "Studied":
-                    {#receivedData = studiedDict;#}
-                    {#var leadsRef2 = firebase.ref('users/' + stID + '/studied_courses/');#}
-                    {#leadsRef2.on('value', function(snapshot) {#}
-                    {#snapshot.forEach(function(childSnapshot) {#}
-                    {##}
-                    {#var childData = childSnapshot.val();#}
-                    {#console.log(childData);#}
-                    {#receivedData.push(childData);#}
-                    {#//var key = Object.keys(snapshot.val())[0];#}
-                    {#console.log(receivedData);#}
-                    {#    });#}
-                   // {#});#}
+                {#receivedData = studiedDict;#}
+                {#var leadsRef2 = firebase.ref('users/' + stID + '/studied_courses/');#}
+                {#leadsRef2.on('value', function(snapshot) {#}
+                {#snapshot.forEach(function(childSnapshot) {#}
+                {##}
+                {#var childData = childSnapshot.val();#}
+                {#console.log(childData);#}
+                {#receivedData.push(childData);#}
+                {#//var key = Object.keys(snapshot.val())[0];#}
+                {#console.log(receivedData);#}
+                {#    });#}
+                    // {#});#}
 
                     alert("studied");
                     break;
@@ -334,40 +337,38 @@
                     receivedData = failed;
                     var leadsRef3 = firebase.ref('users/' + stID + '/failed_courses/');
                     leadsRef3.on
-                    ('value', function(snapshot) {
-                    snapshot.forEach(function(childSnapshot) {
+                    ('value', function (snapshot) {
+                        snapshot.forEach(function (childSnapshot) {
 
-                    var key = Object.keys(snapshot.val())[0];
-                    console.log(key);
-                    receivedData.push(Object.keys(snapshot.val()));
+                            var key = Object.keys(snapshot.val())[0];
+                            console.log(key);
+                            receivedData.push(Object.keys(snapshot.val()));
                         });
                     });
                     alert("Failed");
                     break;
 
-        }
+            }
 
         }
-
-
 
 
     }
 
 
     function studied() {
-            receivedData = studiedDict;
-            var leadsRef2 = firebase.ref('users/' + stID + '/studied_courses/');
-            leadsRef2.on('value', function(snapshot) {
-            snapshot.forEach(function(childSnapshot) {
+        receivedData = studiedDict;
+        var leadsRef2 = firebase.ref('users/' + stID + '/studied_courses/');
+        leadsRef2.on('value', function (snapshot) {
+            snapshot.forEach(function (childSnapshot) {
 
-            var childData = childSnapshot.val();
-            console.log(childData);
-            receivedData.push(childData);
-            //var key = Object.keys(snapshot.val())[0];
-            console.log(receivedData);
-                });
+                var childData = childSnapshot.val();
+                console.log(childData);
+                receivedData.push(childData);
+                //var key = Object.keys(snapshot.val())[0];
+                console.log(receivedData);
             });
+        });
 
     }
 
@@ -385,7 +386,6 @@
         row.insertCell(0).innerHTML = '<input type="button" value = "Remove" class="btn btn-primary px-4 py-2 text-white" onClick="Javacsript:deleteRow(this)">';
         row.insertCell(1).innerHTML = GPA.value;
         row.insertCell(2).innerHTML = Course.value;
-
 
 
     }
@@ -417,7 +417,7 @@
         var index = obj.parentNode.parentNode.rowIndex;
         var table = document.getElementById("myTableData");
         console.log(index)
-        receivedData.splice(index-1, 1)
+        receivedData.splice(index - 1, 1)
         table.deleteRow(index);
         console.log(receivedData);
 
@@ -429,14 +429,14 @@
 
     }
 
-    function submitCourses(){
-            alert(document.getElementById("myTableData").rows[2].cells.item(2).innerHTML);
-            alert(tableData);
+    function submitCourses() {
+        alert(document.getElementById("myTableData").rows[2].cells.item(2).innerHTML);
+        alert(tableData);
         var stID = document.getElementById("fname").value;
 
-            firebase.ref('users/').child(stID).update({
-             registered_courses:registered
-          });
+        firebase.ref('users/').child(stID).update({
+            registered_courses: registered
+        });
         alert("Cources submited");
 
         {#firebase.ref('users/').child("userid").update({#}

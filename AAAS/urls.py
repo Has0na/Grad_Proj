@@ -23,7 +23,7 @@ urlpatterns = [
     url(r'^postsign/', views.postsign_Student),
     url(r'^reglog/', views.postsign_registrer, name="reglog"),
 
-    url(r'^regester/', views.register_Details, name="regester"),
+    url(r'^FAQs/', views.register_Details, name="FAQs"),
     # url(r'^postsignup/', views.postsignup, name='postsignup'),
     url(r'^mainstu/', views.mainstu, name='mainstu'),
     url(r'^json_test/', views.code_test, name='json_test'),
@@ -39,7 +39,7 @@ urlpatterns = [
 
     url(r'^regsignin/', views.reglogin, name="regsignin"),
     url(r'^registrerMain/', views.reg_main, name="registrerMain"),
-    url(r'^reghome/', views.reg_log, name='reghome'),
+    url(r'^reghome/', views.registrer_logIn, name='reghome'),
     url(r'^registrerrole/', views.registrer_role, name='registrerrole'),
 
 

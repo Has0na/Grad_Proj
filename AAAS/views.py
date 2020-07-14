@@ -20,13 +20,13 @@ authe = firebase.auth()
 database = firebase.database()
 
 
-# -------------------^^ Login page View { LogIn with Firebase Session } ^^------------------- #
+# # -------------------^^ Login page View { LogIn with Firebase Session } ^^------------------- #
 def reglogin(request):
     return render(request, "Registrer_Login.html")  # {"e": email, "n": name}
 
 
 # -------------------^^ Login page View { LogIn with Firebase Session } ^^------------------- #
-def reg_log(request):
+def registrer_logIn(request):  # TODO: Edit To Authontication of Registrer Process
     # email = request.POST.get('email')
     # passw = request.POST.get("pass")
     # try:
@@ -44,7 +44,7 @@ def reg_log(request):
     # a = a[0]
     # a = a['localId']
     # name = database.child('users').child(a).child('details').child('name').get(idtoken).val()
-    return render(request, "index.html")  # {"e": email, "n": name}
+    return render(request, "new_Registrer_Main.html")  # {"e": email, "n": name}
 
 
 # -------------------^^ landing page View ^^------------------- #
@@ -54,7 +54,7 @@ def registrer_role(request):
 
 # -------------------^^ landing page View ^^------------------- #
 def reg_main(request):
-    return render(request, "index.html")
+    return render(request, "new_Registrer_Main.html")
 
 
 # -------------------^^ Git Student Courses List View ^^------------------- #
@@ -76,7 +76,7 @@ def post_add(request):
     data = {"name": name, "user id": id, "Email": email, "status": "1", "password": passw, "phone number": phone_number,
             "address": address, 'department': department, }
     database.child("users").child(uid).child("details").set(data)
-    return render(request, "index.html")
+    return render(request, "new_Registrer_Main.html")
 
 
 # -------------------^^ Login page View ^^------------------- #
@@ -320,7 +320,7 @@ def postsign_registrer(request):
     else:
         print("failed")
 
-    return render(request, "index.html")
+    return render(request, "new_Registrer_Main.html")
 
 
 def post_add(request):
@@ -345,7 +345,7 @@ def post_add(request):
     except:
         message = "Unable to create account try again"
         return render(request, "addUser.html", {"msg": message})
-    return render(request, "index.html")
+    return render(request, "new_Registrer_Main.html")
 
 
 def newUser(request):
