@@ -170,8 +170,7 @@
                                     <br>
 
                                     <table id="myTableData" border="1" cellpadding="2"style="
-                                    border-collapse: separate;border-spacing: 0;color: #4a4a4d;
-                                    Helvetica, Arial, sans-serif;">
+                                    border-collapse: separate;border-spacing: 0;color: #4a4a4d;">
 
                             <tr>
                                 <thead>
@@ -250,7 +249,7 @@
     var firebase = firebase.database();
     //var registeredCourses=[], failedCourses=[];
     //var studiedCourses={};
-    var studiedDict = {};//"AI":2.1, "OOP":3.5, "ML":1.9
+    var studiedDict = [];//
     var failed = []//["Foundations of Information Systems", "Hand Drawing", "History of Computing"];
     var registered = ["Human Rights", "IT Fundamentals", "Interpersonal Communication", "Mathematics I"];
     var receivedData,tableData;
@@ -272,6 +271,7 @@
 
     //------------------------ Dynamiclly Creating DropBox-------------------------//
     function getStudentDataByID() {
+
         var values = ["....", "registered", "Studied", "Failed"];
         var stID = document.getElementById("fname").value;
 
@@ -290,14 +290,47 @@
         label.htmlFor = "list";
         document.getElementById("container").appendChild(label).appendChild(select);
         console.log(stID);
+        registered = [];
+        studied=[];
+
+        var leadsRef = firebase.ref('users/' + stID + '/registered_courses/');
+        leadsRef.on('value', function(snapshot) {
+            snapshot.forEach(function(childSnapshot) {
+              var childData = childSnapshot.val();
+                console.log(childData);
+                registered.push(childData);
+
+            });
+        });
+            var leadsRef2 = firebase.ref('users/' + stID + '/studied_courses/');
+            leadsRef2.on
+            ('value', function(snapshot)
+            {
+            snapshot.forEach(function(childSnapshot)
+            {
+              var childData = childSnapshot.val();
+                console.log(childData);
+                studied.push(childData);
+            });
+            });
+
+            var leadsRef3 = firebase.ref('users/' + stID + '/failed_courses/');
+            leadsRef3.on
+            ('value', function(snapshot)
+            {
+            snapshot.forEach(function(childSnapshot)
+            {
+              var childData = childSnapshot.val();
+                console.log(childData);
+                failed.push(childData);
+            });
+            });
+
+        console.log(registered);
                 {#var studied = firebase.ref('users/').child(stID).child('studied_courses').get().val();#}
                 {#console.log(studied);#}
                 {#var failed = firebase.ref('users/').child(user_id).child('failed_courses').get().val();#}
                 {#console.log(failed)#}
-
-
-
-
 
         select.onchange = function () {
             alert("Which List!");
@@ -337,6 +370,7 @@
         row.insertCell(1).innerHTML = Course.value;
         row.insertCell(2).innerHTML = GPA.value;
 
+
     }
 
     //-----------------------Generate Table-----------------------------------
@@ -365,7 +399,10 @@
 
         var index = obj.parentNode.parentNode.rowIndex;
         var table = document.getElementById("myTableData");
+        console.log(index)
+        receivedData.splice(index-1, 1)
         table.deleteRow(index);
+        console.log(receivedData);
 
     }
 
@@ -378,14 +415,20 @@
     function submitCourses(){
             alert(document.getElementById("myTableData").rows[2].cells.item(2).innerHTML);
             alert(tableData);
+        var stID = document.getElementById("fname").value;
+
+            firebase.ref('users/').child(stID).update({
+             registered_courses:registered
+          });
+        alert("Cources submited");
 
         {#firebase.ref('users/').child("userid").update({#}
         {#     registered_courses:selectedCourses#}
         {#  });#}
-                studiedDict = firebase.ref('users/').child(stID).child('studied_courses').get().val();
-                console.log(studied);
-                failed = firebase.ref('users/').child(user_id).child('failed_courses').get().val();
-                console.log(failed)
+        {#        studiedDict = firebase.ref('users/').child(stID).child('studied_courses').get().val();#}
+        {#        console.log(studied);#}
+        {#        failed = firebase.ref('users/').child(user_id).child('failed_courses').get().val();#}
+        {#        console.log(failed)#}
         alert("Data Updated");
 
     }

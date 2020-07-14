@@ -16,7 +16,7 @@
 
 <body>
 
-<form id="formPr">
+<form id="formPr" action="/mainstu/" method="post">
     <!-- ------------This is the 1st Grade Courses-------------------------------- -->
     <div class='container'>
         <div class='wrapper'>
@@ -105,8 +105,10 @@
 <div class="chk_center">
     <div class="chkwrapper5">
         <div class="chk">
-                <form onsubmit="if(document.getElementById('agree').checked) { return true; } else { alert('Please indicate that you have read and agree to the Terms and Conditions and Privacy Policy'); return false; }">
-                    <input type="checkbox" name="checkbox" value="check" id="agree" /> I have read and agree to the Terms and Conditions and Privacy Policy
+                <form >
+                        <input type="checkbox" id="agree" onclick="EnableDisable()">
+                        I Agree with the terms and condition that I have Submitted My Courses.
+
                 </form>
         </div>
     </div>
@@ -116,11 +118,11 @@
 
 
 <div class="btn_center">
-    <div class="wrapper5">
-        <div class="btn">
-            <a onclick=submit(); href="{#% url 'submit_course' %#}">Submit</a>
-        </div>
-    </div>
+                <button
+                    id="generate" style="margin: 10px; background-color: white" class="wrapper5"
+                    type="submit"  value="generateFromID" disabled="disabled" onclick="submit();">
+                   Submit
+                </button>
 </div>
 
 {# <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->#}
@@ -157,6 +159,21 @@
     var checkbox;
     var selectedCourses;
     var selecteCourses = [];
+
+    //------------------------^^ Enable Get Courses ^^-------------------------//
+    function EnableDisable() {
+        //Reference the Button.
+        var btnSubmit = document.getElementById("generate");
+        //Verify the TextBox value.
+        if (document.getElementById("agree").checked == true) {
+            //Enable the TextBox when TextBox has value.
+            btnSubmit.disabled = false;
+        } else {
+            //Disable the TextBox when TextBox is empty.
+            btnSubmit.disabled = true;
+        }
+    }
+
     // ---------------------------^^ Dynamic Courses Loads ^^------------------------------------ //
     for (j = 0; j < 4; j++) {
         var app = document.getElementById(j);
@@ -224,11 +241,18 @@
 
 
     function submit(){
+        console.log(selectedCourses )
+        if (selectedCourses.length != null){
         firebase.ref('users/').child("{{ userid }}").update({
              registered_courses:selectedCourses
           });
-        alert("Cources submited");
+        alert("Courses Submitted Successful");
+            window.location.replace({% url 'mainstu' %});
 
+        }
+        else {
+        alert("You Need To Register data First!");
+        }
     }
 
 

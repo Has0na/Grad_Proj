@@ -1,10 +1,10 @@
 from json import *
+
 from django.shortcuts import render
-from django.urls import reverse
 from pyrebase import pyrebase
+
 from AAAS.code import *
 from AAAS.courses import *
-from requests.exceptions import *
 
 # -------------------^^ Confegrations for FireBase ^^------------------- #
 config = {
@@ -21,33 +21,6 @@ firebase = pyrebase.initialize_app(config)
 authe = firebase.auth()
 database = firebase.database()
 
-# # -------------------^^ Registrer Views ^^------------------- #
-# def get_absolute_url(self):
-#     return reverse("create")
-#
-#
-
-#
-# def logout(request):
-#     auth.logout(request)
-#     # authe.current_user = None
-#     return render(request, "login.html")
-
-
-# def postsign(request):
-#     email = request.POST.get('email')
-#     passw = request.POST.get("pass")
-#
-#     try:
-#         user = authe.sign_in_with_email_and_password(email, passw)
-#
-#     except:
-#         message = "invalid credentials"
-#         return render(request, "login.html", {"msg": message})
-#     print(user['idToken'])
-#     session_id = user['idToken']
-#     request.session['uid'] = str(session_id)
-#     return render(request, "index.html", {"e": email})
 
 # -------------------^^ Login page View { LogIn with Firebase Session } ^^------------------- #
 def reglogin(request):
@@ -120,99 +93,6 @@ def post_add(request):
     return render(request, "index.html")
 
 
-# -------------------^^ Git Student Courses List View ^^------------------- #
-def fill_info(request):
-    try:
-        idtoken = request.session['uid']
-        url = request.POST.get('url')
-        a = authe.get_account_info(idtoken)
-        a = a['users']
-        a = a[0]
-        a = a['localId']
-        print("info" + str(a))
-        print(url)
-        data = {
-            # first term
-            'IT Fundamentals': "A", 'Mathematics I': "B", 'Physics I': "c", 'Electronics': "B",
-            'English Language I': "B-", 'Hand Drawing': "c+", 'History of Computing': "B",
-            # # second term
-            "Social Context of Computing": "B-", 'Programming Fundamentals': "A-", 'Mathematics II': "B-",
-            'Physics II': "B-", 'Digital Circuits': "B-", ' Interpersonal Communication': "B-",
-            'Human Rights': "C", 'English Language II': "B", 'Computer Law': "B",
-            # # second grade
-            'Discrete Structures': "C", 'Object-Oriented Programming': "C",
-            'Project Management': "C",
-            # 'Data Communications': "C",
-            'Technical Writing': "C", 'Foundations of Information Systems': "C",
-            'Business Administration': "C",
-            # 2s_term
-            'Data Structures and Algorithms': "C",
-            'Databases': "B", 'Computer Architecture': "B",
-            'Probability and Statistics': "C", 'Computers and Ethics': "C",
-            'Systems Analysis and Design': "C+", 'File Organization': "C-",
-
-            # # # third grade
-            # "30": 'Computer Networks', "31": 'Image Processing', "32": 'Visual Programming',
-            # "33": 'Computer Graphics',
-            # "34": 'Algorithm Design and Analysis', "35": 'Software Engineering',
-            #
-            #  'Operating Systems',  'Artificial Intelligence': "C",
-            #  'Software Development and Professional Practice',
-            #  'Automata and Language Theory', "40": 'Advanced Computer Graphics', "41": 'Field Training',
-            # # # fourth grade
-            #  'Compiler Construction': "C",  'Introduction to Computer Security': "C",  'Web Programming': "C",
-            #  'Computer Vision': "C",  'Network Programming': "C",
-            #  'Capstone Project I': "C",
-            #  'Machine Learning': "C",  'Cryptography',: "C" 'Parallel Computation': "C",
-            #  'Computer Animation': "C",  'Advanced Database': "C",  'Capstone Project II': "C",
-        }
-
-        database.child('users').child(a).child('studied_courses').set(data, idtoken)
-        name = database.child('users').child(a).child('details').child('name').get(idtoken).val()
-        return render(request, 'index.html', {'e': name})
-    except KeyError:
-        message = "oops user logged out, please sign in again"
-        return render(request, "index.html", {"msg": message})
-
-
-# -------------------^^ Git Student Courses List View ^^------------------- #
-def fill_info2(request):
-    try:
-        idtoken = request.session['uid']
-        url = request.POST.get('url')
-        a = authe.get_account_info(idtoken)
-        a = a['users']
-        a = a[0]
-        a = a['localId']
-        print("info" + str(a))
-        print(url)
-        data = {'Data Communications': "F", }
-
-        database.child('users').child(a).child('failed_courses').set(data, idtoken)
-        name = database.child('users').child(a).child('details').child('name').get(idtoken).val()
-        return render(request, 'index.html', {'e': name})
-    except KeyError:
-        message = "oops user logged out, please sign in again"
-        return render(request, "index.html", {"msg": message})
-
-
-# -------------------^^ Git Student Courses List View ^^------------------- #
-# def get_id(request):
-#     try:
-#        # user_id = request.POST.get('fname')
-#         user2=request.POST['fname']
-#         print(user2)
-#         # print(user_id)
-#         # studied = database.child('users').child(user_id).child('studied_courses').get().val()
-#         # print(studied)
-#         # failed = database.child('users').child(user_id).child('failed_courses').get().val()
-#         # registered = database.child('users').child(user_id).child('failed_courses').get().val()
-#     except:
-#         print("failed")
-#
-#     return render(request, "regestrer_updates.html")
-
-
 # -------------------^^ Login page View ^^------------------- #
 def signIn(request):
     return render(request, "newlogin.html")
@@ -221,7 +101,7 @@ def signIn(request):
 # -------------------^^ LogOut page View ^^------------------- #
 def logout(request):
     try:
-        authe.current_user = None
+        del request.session['uid']
     except KeyError:
         pass
     return render(request, "newlogin.html")
@@ -296,29 +176,6 @@ def student_report(request):
                                              "address": address})
 
 
-# -------------------^^ Users Registeration page View ^^------------------- #
-def postsignup(request):
-    # name = request.POST.get('uname')
-    # print(name)
-    # email = request.POST.get('uemail')
-    # print(email)
-    # passw = request.POST.get('upass')
-    # print(passw)
-    # # try:
-    # user = authe.create_user_with_email_and_password(email, passw)
-    # uid = user['localId']
-    # data = {"name": name, "status": "1"}
-    # database.child("users").child(uid).child("details").set(data)
-
-    # except:
-    #     message = "Unable to create account try again"
-    #     return render(request, "addUser.html", {"msg": message})
-    return render(request, "login.html")
-
-
-# ------------------------^^ Load Session Function ^^--------------- #
-
-
 # ------------------------^^ Load Session Function ^^--------------- #
 def load_Session(request):
     idtoken = request.session['uid']
@@ -385,8 +242,6 @@ def course_submit(request):
     except:
         return print("Exception Happened")
 
-    # -------------------^^ Getting Data From Site App To Database ^^------------------- #
-
 
 # -------------------^^ Course Registration page View ^^------------------- #
 def course_registration(request):
@@ -429,67 +284,17 @@ def course_registration(request):
                    "address": address, "userid": usrid})
 
 
-# def course_Description(request):
-#     # try:  # Session Start
-#     #     idtoken = request.session['uid']
-#     #     url = request.POST.get('url')
-#     #     a = authe.get_account_info(idtoken)
-#     #     a = a['users']
-#     #     a = a[0]
-#     #     a = a['localId']
-#     #     print("info" + str(a))  # Print User Info
-#     #     print(url)  # Print Link Info
-#     # -------------------^^ Getting Data From Database ^^------------------- #
-#     # list_sub = database.child('users').child(a).child('studied_courses').get().val()
-#     # values = list_sub.values()  # Assigning data List Of Studied Courses
-#     failed = []  # Assigning data List Of Failed Courses
-#     # if values is None:  # Rendering Empty Data
-#     values = []
-#     # -------------------^^ Checking For Available Courses With AAAS Algorithm ^^------------------- #
-#     coursesDescription = getCoursesDescrition()  # Assign List Of Available Courses
-#     dataJSON1 = dumps(coursesDescription)  # Parsing The List Of Subjects To Script Format ( JSON )
-#     print(dataJSON1)
-#     print("your values: ")
-#     for i in values:
-#         print(i)
-#
-#     print(coursesDescription)
-#     # -------------------^^ Getting User Info From Database ^^------------------- #
-#     # name = database.child('users').child(a).child('details').child('name').get(idtoken).val()
-#     return render(request, "about_stu.html", {"Description": dataJSON1})
-
-
-# except KeyError:  # Exception for Finished Students & Bugs
-#     name = database.child('users').child(a).child('details').child('name').get(idtoken).val()
-#     message = "There are no available courses, You will be forwarded to home page"
-#     return render(request, 'new_main.html', {"msg": message, 'n': name})
-
-
 # -------------------^^ Contact US page View ^^------------------- #
 def aboutst(request):
-    try:  # Session Start
-        name, id2, e_mail, department, phone, address = load_Session(request)
-        # -------------------^^ Checking For Available Courses With AAAS Algorithm ^^------------------- #
-        courses_Description = getCoursesDescrition()  # Assign List Of Available Courses
-        dataJSON1 = dumps(courses_Description)
-    except:
-        print("hhhhh")
-    # Parsing The List Of Subjects To Script Format ( JSON )
-    # print(dataJSON1)
-    return render(request, "about_stu.html", {"n": name, "id": id2,
-                                              "mail": e_mail, "department": department, "phone": phone,
-                                              "address": address, "Description": dataJSON1})
+    courses_Description = getCoursesDescrition()  # Assign List Of Available Courses
+    dataJSON1 = dumps(courses_Description)
+    return render(request, "about_stu.html", {"Description": dataJSON1})
 
 
 # -------------------^^ Contact US page View ^^------------------- #
 def aboutus(request):
     return render(request, "aboutus.html")
 
-
-# -------------------^^ Contact US page View ^^------------------- #
-# def registrer_Updates(request):
-
-# return render(request, "regestrer_updates.html", {'choice': MY_CHOICES})
 
 
 # -------------------^^ Code Testin page View for features ^^------------------- #
@@ -508,3 +313,46 @@ def code_test(request):
     # dump data
     dataJSON = dumps(dicsh)
     return render(request, 'anyGrade.html', {'data': dataJSON})
+
+
+# ------------------------------------------- registrar functions-------------------------------
+# -------------------^^ Login page View { LogIn with Firebase Session } ^^------------------- #
+def postsign_reg(request):
+    email = request.POST.get('email')
+    print(email)
+    passw = request.POST.get("pass")
+    if email == 'fahd@fci.lu.edu.eg':
+        authe.sign_in_with_email_and_password('fahd@fci.lu.edu.eg', passw)
+    else:
+        print("failed")
+
+    return render(request, "index.html")
+
+
+def post_add(request):
+    try:
+        name2 = request.POST.get('uname')
+        id = request.POST.get('userid')
+        print(name2)
+        email = request.POST.get('uemail')
+        print(email)
+        passw = request.POST.get('upass')
+        phone_number = request.POST.get('phone')
+        address = request.POST.get('address')
+        department = request.POST.get('depart')
+        print(passw)
+        # try:
+        user = authe.create_user_with_email_and_password(email, passw)
+        uid = user['localId']
+        data = {"name": name2, "user id": id, "Email": email, "status": "1", "password": passw,
+                "phone number": phone_number,
+                "address": address, 'department': department, }
+        database.child("users").child(uid).child("details").set(data)
+    except:
+        message = "Unable to create account try again"
+        return render(request, "addUser.html", {"msg": message})
+    return render(request, "index.html")
+
+
+def newUser(request):
+    return render(request, "addUser.html")

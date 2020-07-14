@@ -21,8 +21,10 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.signIn, name="$"),
     url(r'^postsign/', views.postsign),
+    url(r'^reglog/', views.postsign_reg, name="reglog"),
+
     url(r'^regester/', views.register_Details, name="regester"),
-    url(r'^postsignup/', views.postsignup, name='postsignup'),
+    # url(r'^postsignup/', views.postsignup, name='postsignup'),
     url(r'^mainstu/', views.mainstu, name='mainstu'),
     url(r'^json_test/', views.code_test, name='json_test'),
     url(r'^profile/', views.profile, name='profile'),
@@ -40,17 +42,16 @@ urlpatterns = [
     url(r'^registrer/', views.regmain, name='registrer'),
     url(r'^registrerrole/', views.registrer_role, name='registrerrole'),
 
-    # url(r'^getid/', views.get_id, name='getid'),
     #
     url(r'^res/', views.reset_pass, name='res'),
-    #
+
     # url(r'^regester/', views.register, name="regester"),
     url(r'^post_add/', views.post_add, name='post_add'),
     url(r'^add_s/', views.add_s, name='add_s'),
     #
-    url(r'^fill_failed/', views.fill_info2, name='fill_failed'),
+    url(r'^newuser/', views.newUser, name='newuser'),
     #
-    url(r'^fill/', views.fill_info, name='fill'),
+    # url(r'^fill/', views.fill_info, name='fill'),
     # url(r'^printfill/', views.print_info, name='printfill'),
     #
     url(r'^logout/', views.logout, name='logout'),
