@@ -27,23 +27,17 @@ def reglogin(request):
 
 # -------------------^^ Login page View { LogIn with Firebase Session } ^^------------------- #
 def registrer_logIn(request):  # TODO: Edit To Authontication of Registrer Process
-    # email = request.POST.get('email')
-    # passw = request.POST.get("pass")
-    # try:
-    #     user = authe.sign_in_with_email_and_password(email, passw)
-    # except:
-    #     message = "invalid username or Pass+word or check your internet connection"
-    #     return render(request, "addUser.html", {"msg": message})
-    # print(user['idToken'])
-    # session_id = user['idToken']
-    # request.session['uid'] = str(session_id)
-    # idtoken = request.session['uid']
-    # url = request.POST.get('url')
-    # a = authe.get_account_info(idtoken)
-    # a = a['users']
-    # a = a[0]
-    # a = a['localId']
-    # name = database.child('users').child(a).child('details').child('name').get(idtoken).val()
+    email = request.POST.get('email')
+    print(email)
+    passw = request.POST.get("pass")
+
+    try:
+        # if email==
+        user = authe.sign_in_with_email_and_password("yehia@fci.lu.edu.eg", passw)
+    except:
+        message = "invalid username or Pass+word or check your internet connection"
+        return render(request, "Registrer_Login.html", {"msg": message})
+
     return render(request, "new_Registrer_Main.html")  # {"e": email, "n": name}
 
 
@@ -197,45 +191,45 @@ def mainstu(request):
 
 
 # -------------------^^ (Old) Courses Registration page View ^^------------------- #
-def course_submit(request):
-    try:  # Session Start
-        idtoken = request.session['uid']
-        url = request.POST.get('url')
-        a = authe.get_account_info(idtoken)
-        a = a['users']
-        a = a[0]
-        a = a['localId']
-        # -------------------^^ Getting Data From Database ^^------------------- #
-        list_sub = database.child('users').child(a).child('studied_courses').get().val()
-        failed = database.child('users').child(a).child('failed_courses').get().val()
-        print(list_sub.keys())
-        print(failed)
-        if list_sub is not None:
-            keys = list(list_sub.keys())
-        else:
-            keys = []
-        if failed is not None:
-            keys2 = list(failed.keys())
-        else:
-            keys2 = []
-        # data = json.loads(developerJsonString{})
-        # list_sub = database.child('users').child(a).child('registered_courses').(data, idtoken)
-        # print(list_sub)
-        allcourses = courses_check(keys, keys2)
-        semsGPA = dumps(1.9)
-        print(semsGPA)
-        dataJSON1 = dumps(allcourses)
-        # Get Dictionary data
-        dicsh = getCredithours()
-        # dumps Dictionary data
-        dataJSON = dumps(dicsh)
-        name, id2, e_mail, department, phone, address = load_Session(request)
-        return render(request, "about_stu.html",
-                      {"data": dataJSON1, "Dict": dataJSON, "ps": semsGPA, "n": name, "id": id2,
-                       "mail": e_mail, "department": department, "phone": phone,
-                       "address": address})
-    except:
-        return print("Exception Happened")
+# def course_submit(request):
+#     try:  # Session Start
+#         idtoken = request.session['uid']
+#         url = request.POST.get('url')
+#         a = authe.get_account_info(idtoken)
+#         a = a['users']
+#         a = a[0]
+#         a = a['localId']
+#         # -------------------^^ Getting Data From Database ^^------------------- #
+#         list_sub = database.child('users').child(a).child('studied_courses').get().val()
+#         failed = database.child('users').child(a).child('failed_courses').get().val()
+#         print(list_sub.keys())
+#         print(failed)
+#         if list_sub is not None:
+#             keys = list(list_sub.keys())
+#         else:
+#             keys = []
+#         if failed is not None:
+#             keys2 = list(failed)
+#         else:
+#             keys2 = []
+#         # data = json.loads(developerJsonString{})
+#         # list_sub = database.child('users').child(a).child('registered_courses').(data, idtoken)
+#         # print(list_sub)
+#         allcourses = courses_check(keys, keys2)
+#         semsGPA = dumps(1.9)
+#         print(semsGPA)
+#         dataJSON1 = dumps(allcourses)
+#         # Get Dictionary data
+#         dicsh = getCredithours()
+#         # dumps Dictionary data
+#         dataJSON = dumps(dicsh)
+#         name, id2, e_mail, department, phone, address = load_Session(request)
+#         return render(request, "about_stu.html",
+#                       {"data": dataJSON1, "Dict": dataJSON, "ps": semsGPA, "n": name, "id": id2,
+#                        "mail": e_mail, "department": department, "phone": phone,
+#                        "address": address})
+#     except:
+#         return print("Exception Happened")
 
 
 # -------------------^^ Course Registration page View ^^------------------- #
@@ -253,13 +247,13 @@ def course_registration(request):
         list_sub = database.child('users').child(a).child('studied_courses').get().val()
         failed = database.child('users').child(a).child('failed_courses').get().val()
         # print(list_sub.keys())
-        # print(failed)
+        print(failed)
         if list_sub is not None:
             keys = list(list_sub.keys())
         else:
             keys = []
         if failed is not None:
-            keys2 = list(failed.keys())
+            keys2 = list(failed)
         else:
             keys2 = []
     except:

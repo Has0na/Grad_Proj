@@ -33,7 +33,7 @@ urlpatterns = [
     url(r'^postsign/', views.logoutforStudent, name='postsign'),
     url(r'^about_st/', views.aboutst, name='about_st'),
     url(r'^report/', views.report, name='report'),
-    url(r'^submit_course/', views.course_submit, name='submit_course'),
+    # url(r'^submit_course/', views.course_submit, name='submit_course'),
     url(r'^stReport/', views.student_report, name='stReport'),
     url(r'^courseregistration/', views.course_registration, name='courseregistration'),
 
