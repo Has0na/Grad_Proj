@@ -251,7 +251,7 @@
 <script>
 
     var firebase = firebase.database();
-    var receivedData, tableData;
+    var receivedData, tableData,keyData= [];
     var studiedDict = [], failed = [], registered = [];//
     // "Foundations of Information Systems", "Hand Drawing", "History of Computing";
     // "Human Rights", "IT Fundamentals", "Interpersonal Communication", "Mathematics I"
@@ -317,8 +317,10 @@
                     leadsRef2.on('value', function (snapshot) {
                         snapshot.forEach(function (childSnapshot) {
 
-                            var childData = childSnapshot.val();
-                            console.log(childData);
+                            key = childSnapshot.key;
+                            childData = childSnapshot.val();
+
+                            keyData.push(key);
                             receivedData.push(childData);
                             //var key = Object.keys(snapshot.val())[0];
                             console.log(receivedData);
@@ -329,15 +331,14 @@
                     break;
 
                 case "Failed":
-                    receivedData = failed;
-                    var leadsRef3 = firebase.ref('users/' + stID + '/failed_courses/');
-                    leadsRef3.on
-                    ('value', function (snapshot) {
-                        snapshot.forEach(function (childSnapshot) {
+                     receivedData = failed;
+                    var leadsRef_F = firebase.ref('users/' + stID + '/failed_courses/');
+                    leadsRef_F.on('value', function (snapshot_F) {
+                        snapshot_F.forEach(function (childSnapshot_F) {
 
-                            var key = Object.keys(snapshot.val())[0];
-                            console.log(key);
-                            receivedData.push(Object.keys(snapshot.val()));
+                            var childData_F = childSnapshot_F.val();
+                            console.log(childData_F);
+                            receivedData.push(childData_F);
                         });
                     });
                     alert("Failed");
@@ -382,8 +383,8 @@
         for (var x in dic) {
             var row = table.insertRow(counter + 1);
             row.insertCell(0).innerHTML = '<input type="button" class="btn btn-primary px-4 py-2 text-white" value = "Remove" onClick="Javacsript:deleteRow(this)">';
-            row.insertCell(1).innerHTML = x;
-            row.insertCell(2).innerHTML = dic[x];
+            row.insertCell(1).innerHTML = dic[x];
+            row.insertCell(2).innerHTML = keyData[x];
             counter++;
             tableData = table;
         }
@@ -395,9 +396,9 @@
         var index = obj.parentNode.parentNode.rowIndex;
         var table = document.getElementById("myTableData");
         console.log(index)
-        receivedData.splice(index - 1, 1)
+        registered.splice(index - 1, 1)
         table.deleteRow(index);
-        console.log(receivedData);
+        console.log(registered);
 
     }
 
@@ -413,9 +414,9 @@
         var stID = document.getElementById("fname").value;
 
         firebase.ref('users/').child(stID).update({
-            registered_courses: registered
+            studied_courses: registered
         });
-        alert("Cources submited");
+        alert("Cour ces submited");
 
         {#firebase.ref('users/').child("userid").update({#}
         {#     registered_courses:selectedCourses#}

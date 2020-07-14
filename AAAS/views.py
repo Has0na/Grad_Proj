@@ -305,16 +305,16 @@ def code_test(request):
 
 # ------------------------------------------- registrar functions-------------------------------
 # -------------------^^ Login page View { LogIn with Firebase Session } ^^------------------- #
-def postsign_registrer(request):
-    email = request.POST.get('email')
-    print(email)
-    passw = request.POST.get("pass")
-    if email == 'fahd@fci.lu.edu.eg':
-        authe.sign_in_with_email_and_password('fahd@fci.lu.edu.eg', passw)
-    else:
-        print("failed")
-
-    return render(request, "new_Registrer_Main.html")
+# def postsign_registrer(request):
+#     email = request.POST.get('email')
+#     print(email)
+#     passw = request.POST.get("pass")
+#     if email == 'fahd@fci.lu.edu.eg':
+#         authe.sign_in_with_email_and_password('fahd@fci.lu.edu.eg', passw)
+#     else:
+#         print("failed")
+#
+#     return render(request, "new_Registrer_Main.html")
 
 
 def post_add(request):

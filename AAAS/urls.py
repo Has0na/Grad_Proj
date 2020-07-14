@@ -21,7 +21,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.signIn, name="$"),
     url(r'^postsign/', views.postsign_Student),
-    url(r'^reglog/', views.postsign_registrer, name="reglog"),
+    # url(r'^reglog/', views.postsign_registrer, name="reglog"),
 
     url(r'^FAQs/', views.register_Details, name="FAQs"),
     # url(r'^postsignup/', views.postsignup, name='postsignup'),
