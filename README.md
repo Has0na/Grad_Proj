@@ -23,4 +23,4 @@
           
           $ python manage.py runserver
 
-### Note : This project is stell in development process 
+### Note : This project is stell in development process so any bugs or warnings occur are not counted.
